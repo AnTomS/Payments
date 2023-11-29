@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Payments</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="btn_continue">Авторизация</string>
+    <string name="hello">Добро пожаловать в приложения для просмотра платежей</string>
+    <string name="put_login">Введите логин</string>
+    <string name="put_password">Введите пароль</string>
+    <string name="amount_pay">сумма платежа</string>
+    <string name="title_pay">Наименование платежа</string>
+    <string name="day_of_the_pay">дата создания</string>
+    <string name="invalid_password">Пароль введен некорректно</string>
+    <string name="invalid_login">Логин введен некорректно</string>
+</resources>

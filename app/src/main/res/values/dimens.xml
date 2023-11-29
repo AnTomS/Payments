@@ -1,0 +1,7 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+
+    <dimen name="spacing_small_size">12dp</dimen>
+
+    <dimen name="corner_18">18dp</dimen>
+</resources>
