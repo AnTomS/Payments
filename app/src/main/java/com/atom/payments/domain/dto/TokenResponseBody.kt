@@ -1,4 +1,4 @@
-package com.atom.payments.data.dto
+package com.atom.payments.domain.dto
 
 import com.google.gson.annotations.SerializedName
 

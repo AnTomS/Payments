@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.atom.payments.R
+import com.atom.payments.data.UserManager
 import com.atom.payments.data.network.ApiServiceFactory.apiService
-import com.atom.payments.data.network.UserManager
 import com.atom.payments.data.repository.Repository
 import com.atom.payments.databinding.FragmentLoginBinding
 
@@ -24,11 +24,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private val sharedViewModel by lazy {
         val repository = Repository(apiService)
         ViewModelProvider(this, SharedViewModelFactory(repository)).get(SharedViewModel::class.java)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -65,7 +60,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             if (isLoginValid && isPasswordValid) {
                 sharedViewModel.login(login, password)
             } else {
-                // Отобразить ошибку о невалидных данных во вводе
                 setLoginError(!isLoginValid)
                 setPasswordError(!isPasswordValid)
             }
@@ -80,7 +74,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 is SharedViewModel.LoginResult.Success -> {
                     val login = result.login
                     val password = result.password
-                    // Отправить запрос на сервер для получения токена
                     sharedViewModel.getToken(login, password)
                 }
 
@@ -141,7 +134,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun showToast(message: String) {
-        Toast.makeText(requireContext(), "Введены корректные данные, проверьте логин и пароль", Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            requireContext(),
+            "Введены корректные данные, проверьте логин и пароль",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     private fun goToPaymentFragment() {

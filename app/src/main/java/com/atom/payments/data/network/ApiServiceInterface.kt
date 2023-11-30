@@ -1,9 +1,8 @@
 package com.atom.payments.data.network
 
-import com.atom.payments.data.dto.LoginRequest
-import com.atom.payments.data.dto.Payment
-import com.atom.payments.data.dto.Payments
-import com.atom.payments.data.dto.TokenResponse
+import com.atom.payments.domain.dto.LoginRequest
+import com.atom.payments.domain.dto.Payments
+import com.atom.payments.domain.dto.TokenResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header

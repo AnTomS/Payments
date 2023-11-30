@@ -1,4 +1,4 @@
-package com.atom.payments.data.dto
+package com.atom.payments.domain.dto
 
 
 data class LoginRequest(

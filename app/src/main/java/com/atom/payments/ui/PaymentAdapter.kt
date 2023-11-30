@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.atom.payments.R
-import com.atom.payments.data.dto.Payment
+import com.atom.payments.domain.dto.Payment
 
 class PaymentAdapter(private val payments: List<Payment>) :
     RecyclerView.Adapter<PaymentAdapter.PaymentViewHolder>() {
@@ -30,7 +30,6 @@ class PaymentAdapter(private val payments: List<Payment>) :
                 amountTextView.text = "Данных нет"
             }
 
-            // Обработка поля "created"
             if (payment.created != null) {
                 createdTextView.text = payment.created.toString()
             } else {

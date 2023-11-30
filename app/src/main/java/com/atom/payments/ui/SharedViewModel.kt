@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.atom.payments.data.dto.Payment
-import com.atom.payments.data.network.UserManager
+import com.atom.payments.data.UserManager
 import com.atom.payments.data.repository.Repository
+import com.atom.payments.domain.dto.Payment
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -61,12 +61,12 @@ class SharedViewModel(private val repository: Repository) : ViewModel() {
                     _loginResult.value = LoginResult.Success(login, password)
                     UserManager.saveToken(response.response?.token ?: "")
                 } else {
-                    _loginResult.value = LoginResult.Error(1003,"Неверный логин или пароль")
+                    _loginResult.value = LoginResult.Error(1003, "Неверный логин или пароль")
                 }
             } catch (e: Exception) {
                 val errorMessage = e.message ?: "Unknown error"
                 Log.e("LoginFragment", "Login failed. Error: $errorMessage")
-                _loginResult.value = LoginResult.Error(1003,"Неверный логин или пароль")
+                _loginResult.value = LoginResult.Error(1003, "Неверный логин или пароль")
             }
         }
     }

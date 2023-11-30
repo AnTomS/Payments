@@ -1,9 +1,9 @@
 package com.atom.payments.data.repository
 
 import android.util.Log
-import com.atom.payments.data.dto.LoginRequest
-import com.atom.payments.data.dto.Payment
-import com.atom.payments.data.dto.TokenResponse
+import com.atom.payments.domain.dto.LoginRequest
+import com.atom.payments.domain.dto.Payment
+import com.atom.payments.domain.dto.TokenResponse
 import com.atom.payments.data.network.ApiServiceInterface
 import com.atom.payments.data.network.UserManager
 
