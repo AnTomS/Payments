@@ -24,7 +24,7 @@ class SharedViewModel(private val repository: Repository) : ViewModel() {
         data class Success(val login: String, val password: String) : LoginResult()
         object InvalidLogin : LoginResult()
         object InvalidPassword : LoginResult()
-        data class Error(val errorMessage: String) : LoginResult()
+        data class Error(val errorCode: Int, val errorMessage: String) : LoginResult()
     }
 
     sealed class TokenResult {
@@ -61,12 +61,12 @@ class SharedViewModel(private val repository: Repository) : ViewModel() {
                     _loginResult.value = LoginResult.Success(login, password)
                     UserManager.saveToken(response.response?.token ?: "")
                 } else {
-                    _loginResult.value = LoginResult.Error("Incorrect login or password")
+                    _loginResult.value = LoginResult.Error(1003,"Неверный логин или пароль")
                 }
             } catch (e: Exception) {
                 val errorMessage = e.message ?: "Unknown error"
                 Log.e("LoginFragment", "Login failed. Error: $errorMessage")
-                _loginResult.value = LoginResult.Error(errorMessage)
+                _loginResult.value = LoginResult.Error(1003,"Неверный логин или пароль")
             }
         }
     }
@@ -105,11 +105,11 @@ class SharedViewModel(private val repository: Repository) : ViewModel() {
 
 
     fun isLoginValid(login: String): Boolean {
-        return !login.isBlank()
+        return login.isNotBlank()
     }
 
     fun isPasswordValid(password: String): Boolean {
-        return !password.isBlank()
+        return password.isNotBlank()
     }
 
     fun validateLoginInput(login: String): Boolean {

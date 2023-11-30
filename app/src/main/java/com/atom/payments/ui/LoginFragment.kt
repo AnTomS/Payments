@@ -1,8 +1,6 @@
 package com.atom.payments.ui
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -39,7 +37,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -90,17 +87,17 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 is SharedViewModel.LoginResult.InvalidLogin -> {
                     setLoginError(true)
                     setPasswordError(false)
-                    showToast(message = "Логин введен некорректно")
+                    showToast("Введёны корректные данные, проверьте логин и пароль")
                 }
 
                 is SharedViewModel.LoginResult.InvalidPassword -> {
                     setLoginError(false)
                     setPasswordError(true)
-                    showToast(message = "Пароль введен некорректно")
+                    showToast("Введёны корректные данные, проверьте логин и пароль")
                 }
 
                 else -> {
-
+                    showToast("Введёны корректные данные, проверьте логин и пароль")
                 }
             }
         }
@@ -115,7 +112,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 }
 
                 is SharedViewModel.TokenResult.Error -> {
-                    showToast("Token retrieval error: ${result.errorMessage}")
+                    showToast("Введёны корректные данные, проверьте логин и пароль")
                 }
 
             }
@@ -125,14 +122,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun setLoginError(isError: Boolean) {
         if (isError) {
             Log.d("LoginFragment", "Setting login error")
-            showToast("Неверный логин")
+            showToast("Неккоректные данные")
         }
     }
 
     private fun setPasswordError(isError: Boolean) {
         if (isError) {
             Log.d("LoginFragment", "Setting password error")
-            showToast("Неверный пароль")
+            showToast("Неккоректные данные")
         }
     }
 
@@ -144,7 +141,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun showToast(message: String) {
-            Toast.makeText(requireContext(),"Неккоректные данные", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Введены корректные данные, проверьте логин и пароль", Toast.LENGTH_SHORT).show()
     }
 
     private fun goToPaymentFragment() {
