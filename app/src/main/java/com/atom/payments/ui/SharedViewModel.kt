@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.atom.payments.data.dto.Payment
+import com.atom.payments.data.network.UserManager
 import com.atom.payments.data.repository.Repository
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -58,6 +59,7 @@ class SharedViewModel(private val repository: Repository) : ViewModel() {
 
                 if (response.success) {
                     _loginResult.value = LoginResult.Success(login, password)
+                    UserManager.saveToken(response.response?.token ?: "")
                 } else {
                     _loginResult.value = LoginResult.Error("Incorrect login or password")
                 }
@@ -82,6 +84,10 @@ class SharedViewModel(private val repository: Repository) : ViewModel() {
                 _tokenResult.value = TokenResult.Error(errorMessage)
             }
         }
+    }
+
+    fun logout() {
+        UserManager.clearToken()
     }
 
     fun getPayments() {

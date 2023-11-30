@@ -1,6 +1,8 @@
 package com.atom.payments.ui
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +20,6 @@ import com.atom.payments.databinding.FragmentLoginBinding
 
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
-
     private lateinit var _binding: FragmentLoginBinding
     private val binding get() = _binding
 
@@ -29,6 +30,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -45,17 +47,18 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.editLogin.addTextChangedListener {
-            sharedViewModel.validateLoginInput(it.toString())
+        binding.editLogin.addTextChangedListener { editable ->
+            setLoginError(!sharedViewModel.isLoginValid(editable.toString()))
             checkLoginButtonEnabled()
         }
 
-        binding.editPassword.addTextChangedListener {
-            sharedViewModel.validatePasswordInput(it.toString())
+        binding.editPassword.addTextChangedListener { editable ->
+            setPasswordError(!sharedViewModel.isPasswordValid(editable.toString()))
             checkLoginButtonEnabled()
         }
 
         binding.btnContinue.setOnClickListener {
+
             val login = binding.editLogin.text.toString().trim()
             val password = binding.editPassword.text.toString().trim()
 
@@ -66,8 +69,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 sharedViewModel.login(login, password)
             } else {
                 // Отобразить ошибку о невалидных данных во вводе
-//                setLoginError(!isLoginValid)
-//                setPasswordError(!isPasswordValid)
+                setLoginError(!isLoginValid)
+                setPasswordError(!isPasswordValid)
             }
         }
 
@@ -121,21 +124,15 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun setLoginError(isError: Boolean) {
         if (isError) {
-            binding.inputLogin.isErrorEnabled = true
-            binding.inputLogin.error = getString(R.string.invalid_login)
-        } else {
-            binding.inputLogin.isErrorEnabled = false
-            binding.inputLogin.error = null
+            Log.d("LoginFragment", "Setting login error")
+            showToast("Неверный логин")
         }
     }
 
     private fun setPasswordError(isError: Boolean) {
         if (isError) {
-            binding.inputPassword.isErrorEnabled = true
-            binding.inputPassword.error = getString(R.string.invalid_password)
-        } else {
-            binding.inputPassword.isErrorEnabled = false
-            binding.inputPassword.error = null
+            Log.d("LoginFragment", "Setting password error")
+            showToast("Неверный пароль")
         }
     }
 
@@ -147,7 +144,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),"Неккоректные данные", Toast.LENGTH_SHORT).show()
     }
 
     private fun goToPaymentFragment() {

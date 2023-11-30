@@ -10,4 +10,5 @@
     <string name="day_of_the_pay">дата создания</string>
     <string name="invalid_password">Пароль введен некорректно</string>
     <string name="invalid_login">Логин введен некорректно</string>
+    <string name="logout">выйти из учетной записи</string>
 </resources>

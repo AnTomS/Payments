@@ -9,9 +9,30 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rc"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/card_for_payment" />
+        tools:listitem="@layout/card_for_payment"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_out"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_out"
+        style="@style/Button_Filled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_small_size"
+        android:enabled="true"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="@string/logout"
+        app:boxCornerRadiusBottomEnd="@dimen/corner_18"
+        app:boxCornerRadiusBottomStart="@dimen/corner_18"
+        app:boxCornerRadiusTopEnd="@dimen/corner_18"
+        app:boxCornerRadiusTopStart="@dimen/corner_18"
+        app:cornerRadius="@dimen/corner_18"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
