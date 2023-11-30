@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +18,7 @@ import com.atom.payments.databinding.FragmentPaymentBinding
 class PaymentFragment : Fragment() {
 
     private lateinit var binding: FragmentPaymentBinding
+    private lateinit var progressBar: ProgressBar
     private val sharedViewModel by lazy {
         val repository = Repository(ApiServiceFactory.apiService)
         ViewModelProvider(this, SharedViewModelFactory(repository)).get(SharedViewModel::class.java)
@@ -27,8 +29,7 @@ class PaymentFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPaymentBinding.inflate(inflater, container, false)
-
-
+        progressBar = binding.progressbar
         return binding.root
     }
 
@@ -45,15 +46,21 @@ class PaymentFragment : Fragment() {
                     val payments = result.payments
                     val adapter = PaymentAdapter(payments)
                     binding.rc.adapter = adapter
+                    showLoading(false)
                 }
 
                 is SharedViewModel.PaymentsResult.Error -> {
                     val errorMessage = result.errorMessage
 
+                    showLoading(false)
                 }
             }
         }
         sharedViewModel.getPayments()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun goToPaymentFragment() {
